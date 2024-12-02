@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
 
-function App() {
+import React, { useState } from 'react';
+import Navbar from './components/Navbar';
+import LoginForm from './components/LoginForm';
+import LoanGrid from './components/LoanGrid';
+
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar />
+      <main className="container p-4 mx-auto">
+        {!isLoggedIn ? (
+          <LoginForm onLogin={handleLogin} />
+        ) : (
+          <>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 mt-4 text-white bg-red-500 rounded"
+            >
+              Logout
+            </button>
+            <LoanGrid />
+          </>
+        )}
+      </main>
     </div>
   );
-}
+};
 
 export default App;
